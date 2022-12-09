@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scripts/Main.gd" type="Script" id=1]
+[ext_resource path="res://scenes/screens/GameScreen.tscn" type="PackedScene" id=3]
+
+[node name="Main" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+script = ExtResource( 1 )
+entry_screen = "GameScreen"
+
+[node name="Screens" type="Node" parent="."]
+
+[node name="GameScreen" parent="Screens" instance=ExtResource( 3 )]
+visible = false
+
+[connection signal="change_requested" from="Screens/GameScreen" to="." method="__on_screen_change_requested"]
