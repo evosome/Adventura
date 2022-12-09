@@ -120,7 +120,8 @@ config/icon="res://icon.png"
 [autoload]
 
 Random="*res://scripts/Random.gd"
-Resources="*res://scripts/Resources.gd"
+Assets="*res://scripts/Assets.gd"
+Scenes="*res://scripts/Scenes.gd"
 
 [display]
 

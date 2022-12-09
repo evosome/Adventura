@@ -24,11 +24,11 @@ func get_level_camera() -> LevelCamera:
 
 
 func select_level(depth: int) -> Level:
-	return Resources.TEST_LEVEL.instance() as Level
+	return Scenes.TEST_LEVEL.instance() as Level
 
 
 func select_generator(depth: int) -> LevelGenerator:
-	return Resources.CLASSIC_GENERATOR.instance() as LevelGenerator
+	return Scenes.CLASSIC_GENERATOR.instance() as LevelGenerator
 
 
 func set_current_depth(new_depth: int) -> void:

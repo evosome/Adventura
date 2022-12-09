@@ -32,11 +32,11 @@ func __on_item_selected(index: int):
 
 
 func __on_generation_started(depth, on_level, used_generator):
-	level_list.set_item_icon(depth, Resources.GENERATING_ICON0)
+	level_list.set_item_icon(depth, Assets.GENERATING_ICON0)
 
 
 func __on_generation_ended(depth, on_level, used_generator):
-	level_list.set_item_icon(depth, Resources.GENERATING_ICON1)
+	level_list.set_item_icon(depth, Assets.GENERATING_ICON1)
 
 
 func __on_depth_changed(depth):

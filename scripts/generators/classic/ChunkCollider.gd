@@ -30,7 +30,7 @@ func set_level(new_level: Level) -> void:
 
 
 static func create_for(level: Level, chunk: Chunk) -> ChunkCollider:
-	var chunk_collider = Resources.CHUNK_COLLIDER.instance() as ChunkCollider
+	var chunk_collider = Scenes.CHUNK_COLLIDER.instance() as ChunkCollider
 	chunk_collider.level = level
 	chunk_collider.chunk = chunk
 	return chunk_collider
