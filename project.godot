@@ -119,7 +119,8 @@ config/icon="res://icon.png"
 
 [autoload]
 
-Random="*res://scripts/Random.gd"
+Random="*res://scripts/utils/Random.gd"
+LevelDraw="*res://scripts/utils/LevelDraw.gd"
 Assets="*res://scripts/Assets.gd"
 Scenes="*res://scripts/Scenes.gd"
 

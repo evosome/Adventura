@@ -148,20 +148,20 @@ func set_cellv(vec: Vector2, tile: int) -> void:
 
 
 func fill(with_tile: int) -> void:
-	level.fill_rect(bounds, with_tile)
+	LevelDraw.fill_rect(level, bounds, with_tile)
 
 
 func fill_rect(rect: Rect2, with_tile: int) -> void:
 	rect.position += bounds.position
 	if bounds.encloses(rect):
-		level.fill_rect(rect, with_tile)
+		LevelDraw.fill_rect(level, rect, with_tile)
 
 
 func draw_linev(start: Vector2, end: Vector2, with_tile: int) -> void:
 	var end_pos = bounds.position + end
 	var start_pos = bounds.position + start
 	if bounds.has_point(start_pos) and bounds.has_point(end_pos):
-		level.draw_tile_linev(start_pos, end_pos, with_tile)
+		LevelDraw.draw_tile_linev(level, start_pos, end_pos, with_tile)
 
 
 func draw_line(x: int, y: int, x1: int, y1: int, with_tile: int) -> void:
