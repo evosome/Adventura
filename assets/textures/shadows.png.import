@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/tilegen.png-fffa3d43f3b73b51ffcf8892a569e013.stex"
+path="res://.import/shadows.png-4d500bc825237b716a5122560d506de2.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/tiles/gens/tilegen.png"
-dest_files=[ "res://.import/tilegen.png-fffa3d43f3b73b51ffcf8892a569e013.stex" ]
+source_file="res://assets/textures/shadows.png"
+dest_files=[ "res://.import/shadows.png-4d500bc825237b716a5122560d506de2.stex" ]
 
 [params]
 
@@ -20,8 +20,8 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=true
-flags/mipmaps=false
+flags/filter=false
+flags/mipmaps=true
 flags/anisotropic=false
 flags/srgb=2
 process/fix_alpha_border=true

@@ -26,11 +26,11 @@ func _generate(level: Level):
 			current_state = GenerationState.PLACING
 		
 		GenerationState.PLACING:
-			if placed_chunks_count < max_chunks:
+			if placed_chunks_count <= max_chunks:
 				var current_chunk = select_neighbour(level, last_placed_chunk)
 				
 				if try_place_chunk(level, current_chunk, last_placed_chunk):
-					if current_chunk.chunk_type == Chunk.ChunkTypes.COMMON:
+					if current_chunk.chunk_type != Chunk.ChunkTypes.BRIDGE:
 						placed_chunks_count += 1
 					chunks.append(current_chunk)
 					chunks_wavefront.append(current_chunk)
@@ -84,10 +84,19 @@ func try_place_chunk(
 
 
 func select_painter(for_chunk: Chunk) -> ChunkPainter:
-	if for_chunk.chunk_type == Chunk.ChunkTypes.BRIDGE:
-		return TunnelPainter.new()
-	else:
-		return CommonPainter.new()
+	var painter: ChunkPainter
+	
+	match for_chunk.chunk_type:
+		Chunk.ChunkTypes.ASCEND:
+			painter = AscendPainter.new()
+		Chunk.ChunkTypes.DESCEND:
+			painter = DescendPainter.new()
+		Chunk.ChunkTypes.BRIDGE:
+			painter = TunnelPainter.new()
+		_:
+			painter = CommonPainter.new()
+	
+	return painter
 
 
 # Select neighbour chunk for the given one
@@ -97,10 +106,16 @@ func select_neighbour(level: Level, for_chunk: Chunk) -> Chunk:
 	var next_chunk_type: int
 
 	match chunk_type:
-		Chunk.ChunkTypes.COMMON:
+		Chunk.ChunkTypes.COMMON, \
+		Chunk.ChunkTypes.ASCEND:
 			next_chunk_type = Chunk.ChunkTypes.BRIDGE
 		_:
-			next_chunk_type = Chunk.ChunkTypes.COMMON
+			if placed_chunks_count >= max_chunks:
+				next_chunk_type = Chunk.ChunkTypes.DESCEND
+			elif placed_chunks_count == 0:
+				next_chunk_type = Chunk.ChunkTypes.ASCEND
+			else:
+				next_chunk_type = Chunk.ChunkTypes.COMMON
 	
 	return Chunk.new(level, next_chunk_type)
 
@@ -110,3 +125,4 @@ func paint(level: Level, chunk: Chunk) -> void:
 	if painter:
 		painter.draw(chunk)
 	level.spawn(ChunkCollider.create_for(level, chunk), chunk.get_rect_center())
+	chunk.apply_shadowing()

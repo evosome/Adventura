@@ -19,9 +19,14 @@ func __on_input_event(
 	event: InputEvent,
 	shape_idx: int) -> void:
 
-	if event.is_action_pressed("left_click") \
-	and level_camera.mode == LevelCamera.CameraModes.POINT:
+	if (event.is_action_pressed("left_click") and \
+		level_camera.mode == LevelCamera.CameraModes.POINT):
+
 		level_camera.position = chunk.get_rect_center()
+		for neighbour in chunk.neighbours:
+			if neighbour:
+				neighbour.update_shadowing(Chunk.ChunkKnownStatus.NEARBY)
+		chunk.update_shadowing(Chunk.ChunkKnownStatus.KNOWN)
 
 
 func set_level(new_level: Level) -> void:
