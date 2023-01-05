@@ -3,7 +3,7 @@ class_name GameWorld
 
 signal level_added(level)
 signal ascend_failed()
-signal level_changed(level)
+signal level_changed(last_level, new_level)
 signal depth_changed(depth)
 signal generation_ended(depth, on_level, used_generator)
 signal generation_started(depth, on_level, used_generator)
@@ -12,6 +12,8 @@ var last_depth: int = -1
 var current_level: Level setget set_current_level
 var current_depth: int = -1 setget set_current_depth
 
+onready var current_player_info: PlayerInfo = PlayerInfo.new()
+onready var current_player: Player = current_player_info.create_player()
 onready var levels_container: Node = $Levels
 
 
@@ -67,8 +69,8 @@ func set_current_level(level: Level) -> void:
 		level.visible = true
 		if current_level:
 			current_level.visible = false
+		emit_signal("level_changed", current_level, level)
 		current_level = level
-		emit_signal("level_changed", level)
 
 
 func set_level_by_depth(depth: int) -> void:

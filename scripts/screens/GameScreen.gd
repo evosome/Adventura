@@ -52,5 +52,5 @@ func __on_descend_pressed():
 	game_world.descend()
 
 
-func __on_level_changed(level):
-	level_camera = level.current_camera
+func __on_level_changed(prev_level, new_level):
+	level_camera = new_level.current_camera
