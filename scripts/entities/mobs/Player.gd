@@ -4,7 +4,7 @@ class_name Player
 signal ascend
 signal descend
 
-var current: bool = false
+var current: bool = true
 
 
 func spawn_on(level: Level, at_pos: Vector2) -> void:

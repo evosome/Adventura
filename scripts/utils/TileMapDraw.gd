@@ -36,7 +36,7 @@ func draw_tile_line(
 	y1: int,
 	with_tile: int) -> void:
 
-	var t: int
+	var t: int = 0
 	var dx: int = x1 - x
 	var dy: int = y1 - y
 	var es: int

@@ -20,7 +20,7 @@ func _generate(level: Level) -> int:
 func _process(_delta):
 	if is_generating:
 		if _generate(level) != GenerationStatus.PROCESSING:
-			set_is_generating(false)
+			self.is_generating = false
 
 
 func set_is_generating(value: bool) -> void:
@@ -33,5 +33,5 @@ func set_is_generating(value: bool) -> void:
 
 func start_generation_for(level: Level) -> void:
 	if self.level != level:
-		set_is_generating(true)
+		self.is_generating = true
 	self.level = level

@@ -40,18 +40,21 @@ const directions: Array = [
 ]
 
 var level: Level
-var bounds: Rect2 = Rect2(0, 0, 5, 5)
+var bounds: Rect2
 var position: Vector2 setget set_position
 var rectangle: Rect2
 var chunk_type: int = ChunkTypes.NONE
 var neighbours: Array
-var known_status: int = ChunkKnownStatus.UNKNOWN setget set_known_status
 var free_directions: Array
 var connected_direction: int = ChunkDirections.NONE
 
 
 func _init(level: Level, chunk_type: int):
 	self.level = level
+	var random_size = Random.randint(2, 4) * 2 + 1
+	self.bounds = Rect2(
+		0, 0,
+		random_size, random_size)
 	self.chunk_type = chunk_type
 	self.neighbours = [
 		null,
@@ -81,6 +84,14 @@ func get_radius() -> Vector2:
 	return bounds.size / 2
 
 
+func get_position() -> Vector2:
+	return bounds.position
+
+
+func get_end() -> Vector2:
+	return bounds.end
+
+
 func get_rect_radius() -> Vector2:
 	return rectangle.size / 2
 
@@ -91,6 +102,10 @@ func get_rect_center() -> Vector2:
 
 func get_rect_position() -> Vector2:
 	return rectangle.position
+
+
+func get_rect_end() -> Vector2:
+	return rectangle.end
 
 
 func get_neighbour(direction: int) -> Chunk:
@@ -109,33 +124,7 @@ func set_position(new_position: Vector2) -> void:
 	rectangle.position = new_position
 
 
-func set_known_status(value: int) -> void:
-	if value == ChunkKnownStatus.KNOWN:
-		for neighbour in neighbours:
-			if neighbour:
-				neighbour.known_status = ChunkKnownStatus.NEARBY
-	known_status = value
-
-
 # MISC
-
-
-func update_shadowing(with_value: int) -> void:
-	if with_value > known_status:
-		known_status = with_value
-		apply_shadowing()
-
-
-func apply_shadowing() -> void:
-	var current_shadowing: int = Level.LevelShadows.BRIGHT
-	
-	match known_status:
-		ChunkKnownStatus.NEARBY:
-			current_shadowing = Level.LevelShadows.HALF_BRIGHT
-		ChunkKnownStatus.UNKNOWN:
-			current_shadowing = Level.LevelShadows.DARK
-	
-	fill_shadow(current_shadowing)
 
 
 func point_as_busy(direction: int) -> void:

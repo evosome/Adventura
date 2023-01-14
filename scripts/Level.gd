@@ -9,23 +9,19 @@ enum LevelTiles {
 	BARRIER
 }
 
-enum LevelShadows {
-	BRIGHT,
-	HALF_BRIGHT,
-	DARK
-}
-
 var current_actor: Node2D
+
+var ascend_point: Vector2
+var descend_point: Vector2
+
+var recent_camera_cell: Vector2
 
 onready var objects: YSort = $Objects
 onready var shadow_map: TileMap = $ShadowMap
 onready var current_camera: LevelCamera = $LevelCamera
 
 export (bool) var can_generate: bool = true
-
-
-func __on_visibility_changed():
-	current_camera.current = visible
+export (bool) var can_spawn_current_actor: bool = true
 
 
 func spawn(node: Node2D, at_pos: Vector2) -> void:
@@ -37,12 +33,13 @@ func spawn(node: Node2D, at_pos: Vector2) -> void:
 func spawn_current_actor(node: Node2D, at_pos: Vector2) -> void:
 	current_actor = node
 	spawn(current_actor, at_pos)
+	current_camera.follow(current_actor)
 
 
 func despawn(node: Node2D) -> void:
 	if node == current_actor:
 		current_actor = null
-	remove_child(node)
+	objects.remove_child(node)
 
 
 func has_actor(node: Node2D) -> bool:

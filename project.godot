@@ -114,10 +114,25 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://docs/ReferenceCollector.gd"
 }, {
+"base": "Node",
+"class": "Roadmap",
+"language": "GDScript",
+"path": "res://scripts/Roadmap.gd"
+}, {
 "base": "Control",
 "class": "Screen",
 "language": "GDScript",
 "path": "res://scripts/Screen.gd"
+}, {
+"base": "TileMap",
+"class": "ShadowMap",
+"language": "GDScript",
+"path": "res://scripts/ShadowMap.gd"
+}, {
+"base": "Node",
+"class": "SingleNodeContainer",
+"language": "GDScript",
+"path": "res://scripts/misc/SingleNodeContainer.gd"
 }, {
 "base": "ChunkPainter",
 "class": "TunnelPainter",
@@ -146,7 +161,10 @@ _global_script_class_icons={
 "Player": "",
 "PlayerInfo": "",
 "ReferenceCollector": "",
+"Roadmap": "",
 "Screen": "",
+"ShadowMap": "",
+"SingleNodeContainer": "",
 "TunnelPainter": ""
 }
 
@@ -192,11 +210,6 @@ move_right={
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":68,"unicode":0,"echo":false,"script":null)
  ]
 }
-do_generate={
-"deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":71,"unicode":0,"echo":false,"script":null)
- ]
-}
 toggle_fullscreen={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":16777254,"unicode":0,"echo":false,"script":null)
@@ -224,5 +237,5 @@ common/enable_pause_aware_picking=true
 
 [rendering]
 
+2d/snapping/use_gpu_pixel_snap=true
 environment/default_clear_color=Color( 0, 0, 0, 1 )
-environment/default_environment="res://default_env.tres"
