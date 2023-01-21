@@ -1,10 +1,9 @@
 extends Area2D
 class_name ChunkCollider
 
-
 var chunk: Chunk
-var level: Level setget set_level
-var level_camera: LevelCamera
+var level: Level
+onready var shadower: ChunkShadower = ChunkShadower.new()
 onready var rectangle_shape: RectangleShape2D = RectangleShape2D.new()
 onready var collision_shape: CollisionShape2D = $CollisionShape2D
 
@@ -14,9 +13,27 @@ func _ready():
 	collision_shape.shape = rectangle_shape
 
 
-func set_level(new_level: Level) -> void:
-	level = new_level
-	level_camera = new_level.current_camera
+func __on_body_entered(body: Node2D):
+	if not body is Player:
+		return
+	chunk.known_status = Chunk.KNOWN_STATUS
+	for neighbour in chunk.neighbours:
+		if not neighbour or (neighbour and neighbour.known_status == Chunk.KNOWN_STATUS):
+			continue
+		neighbour.known_status = Chunk.NEARBY_STATUS
+		shadower.do_half_bright(neighbour)
+	shadower.do_bright(chunk)
+
+
+func __on_body_exited(body: Node2D):
+	if not body is Player:
+		return
+	chunk.known_status = Chunk.NEARBY_STATUS
+	for neighbour in chunk.neighbours:
+		if not neighbour or (neighbour and neighbour.known_status == Chunk.KNOWN_STATUS):
+			continue
+		neighbour.known_status = Chunk.UNKNOWN_STATUS
+	shadower.do_half_bright(chunk)
 
 
 static func create_for(level: Level, chunk: Chunk) -> ChunkCollider:

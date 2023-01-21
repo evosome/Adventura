@@ -1,34 +1,36 @@
 extends Object
 class_name Chunk
 
-enum ChunkTypes {
-	NONE = -1,
-	BRIDGE,
-	COMMON,
-	ASCEND,
-	DESCEND
+enum {
+	NONE_TYPE = -1,
+	BRIDGE_TYPE,
+	COMMON_TYPE,
+	ASCEND_TYPE,
+	DESCEND_TYPE
 }
 
-enum ChunkDirections {
-	NONE = -1,
-	UP,
-	DOWN,
-	LEFT,
-	RIGHT
+enum {
+	NONE_DIRECTION = -1,
+	UP_DIRECTION,
+	DOWN_DIRECTION,
+	LEFT_DIRECTION,
+	RIGHT_DIRECTION
 }
 
-enum ChunkKnownStatus {
-	UNKNOWN,
-	NEARBY,
-	KNOWN
+enum {
+	UNKNOWN_STATUS,
+	NEARBY_STATUS,
+	KNOWN_STATUS
 }
+
+const DEFAULT_SIZE = Vector2(7, 7)
 
 const directions_inverted: Array = [
-	ChunkDirections.DOWN,
-	ChunkDirections.UP,
-	ChunkDirections.RIGHT,
-	ChunkDirections.LEFT,
-	ChunkDirections.NONE
+	DOWN_DIRECTION,
+	UP_DIRECTION,
+	RIGHT_DIRECTION,
+	LEFT_DIRECTION,
+	NONE_DIRECTION
 ]
 
 const directions: Array = [
@@ -41,36 +43,36 @@ const directions: Array = [
 
 var level: Level
 var bounds: Rect2
+var parent: Chunk
+var is_busy: bool
 var position: Vector2 setget set_position
 var rectangle: Rect2
-var chunk_type: int = ChunkTypes.NONE
 var neighbours: Array
+var chunk_type: int = NONE_TYPE
+var known_status: int = UNKNOWN_STATUS
 var free_directions: Array
-var connected_direction: int = ChunkDirections.NONE
+var connected_direction: int = NONE_DIRECTION
 
 
-func _init(level: Level, chunk_type: int):
+func _init(
+	level: Level,
+	chunk_type: int,
+	size: Vector2 = DEFAULT_SIZE):
+
 	self.level = level
-	var random_size = Random.randint(2, 4) * 2 + 1
-	self.bounds = Rect2(
-		0, 0,
-		random_size, random_size)
 	self.chunk_type = chunk_type
+	self.bounds = Rect2(Vector2.ZERO, size)
 	self.neighbours = [
 		null,
 		null,
 		null, 
 		null]
 	self.free_directions = [
-		ChunkDirections.UP,
-		ChunkDirections.DOWN,
-		ChunkDirections.LEFT,
-		ChunkDirections.RIGHT]
+		UP_DIRECTION,
+		DOWN_DIRECTION,
+		LEFT_DIRECTION,
+		RIGHT_DIRECTION]
 	self.rectangle = Rect2(Vector2.ZERO, bounds.end * level.cell_size)
-
-
-func is_busy() -> bool:
-	return free_directions.size() == 0
 
 
 func is_direction_free(direction: int) -> bool:
@@ -124,7 +126,24 @@ func set_position(new_position: Vector2) -> void:
 	rectangle.position = new_position
 
 
+# STATIC
+
+
+static func invert_direction(direction: int) -> int:
+	return directions_inverted[direction] \
+		if direction < directions_inverted.size() \
+		else NONE_DIRECTION
+
+
 # MISC
+
+
+func has_neighbour(direction: int) -> bool:
+	return neighbours[direction] != null
+
+
+func count_neighbours() -> int:
+	return neighbours.size() - neighbours.count(null)
 
 
 func point_as_busy(direction: int) -> void:
@@ -132,15 +151,9 @@ func point_as_busy(direction: int) -> void:
 
 
 func add_neighbour(direction: int, chunk: Chunk) -> void:
-	if direction != ChunkDirections.NONE and direction < neighbours.size():
+	if direction != NONE_DIRECTION and direction < neighbours.size():
 		neighbours[direction] = chunk
 		point_as_busy(direction)
-
-
-func invert_direction(direction: int) -> int:
-	return directions_inverted[direction] \
-		if direction < directions_inverted.size() \
-		else ChunkDirections.NONE
 
 
 func collides_chunk(other: Chunk) -> bool:
@@ -149,6 +162,7 @@ func collides_chunk(other: Chunk) -> bool:
 
 func connect_chunk(other: Chunk, direction: int) -> void:
 	add_neighbour(direction, other)
+	other.parent = self
 	other.connected_direction = direction
 	other.add_neighbour(invert_direction(direction), self)
 

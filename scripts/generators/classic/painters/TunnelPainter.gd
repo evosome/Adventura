@@ -3,11 +3,13 @@ class_name TunnelPainter
 
 
 func draw(chunk: Chunk) -> void:
+	var i: int
 	var radius: Vector2
-	for direction in Chunk.ChunkDirections.values():
-		if direction != Chunk.ChunkDirections.NONE and chunk.neighbours[direction]:
+	while (i < 4):
+		if chunk.has_neighbour(i):
 			radius = chunk.get_radius().floor()
 			chunk.draw_linev(
 				radius,
-				radius + radius * chunk.directions[direction],
+				radius + radius * chunk.directions[i],
 				Level.LevelTiles.CIVIL)
+		i += 1

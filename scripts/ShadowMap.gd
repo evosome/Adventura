@@ -1,8 +1,8 @@
 extends TileMap
 class_name ShadowMap
 
-enum ShadowMapShadows {
-	BRIGHT,
-	HALF_BRIGHT,
-	DARK
+enum {
+	NO_SHADOW,
+	SMALL_SHADOW,
+	DARK_SHADOW
 }

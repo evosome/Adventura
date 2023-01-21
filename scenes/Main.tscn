@@ -14,5 +14,3 @@ entry_screen = "GameScreen"
 
 [node name="GameScreen" parent="Screens" instance=ExtResource( 3 )]
 visible = false
-
-[connection signal="change_requested" from="Screens/GameScreen" to="." method="__on_screen_change_requested"]

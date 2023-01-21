@@ -23,13 +23,13 @@ rect_min_size = Vector2( 46, 16 )
 
 [node name="_FpsLabel" type="Label" parent="HBoxContainer"]
 margin_right = 35.0
-margin_bottom = 16.0
+margin_bottom = 15.0
 text = "FPS: "
 
 [node name="FpsOutputLabel" type="Label" parent="HBoxContainer"]
 margin_left = 39.0
 margin_right = 46.0
-margin_bottom = 16.0
+margin_bottom = 15.0
 text = "0"
 
 [connection signal="timeout" from="FpsUpdateTimer" to="." method="__on_timeout"]

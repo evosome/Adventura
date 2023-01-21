@@ -1,37 +1,38 @@
 extends Node
 class_name LevelGenerator
 
-enum GenerationStatus {
-	PROCESSING,
-	DONE
+enum {
+	PROCESSING_STATUS,
+	DONE_STATUS
 }
 
 signal generation_ended
 signal generation_started
 
 var level: Level
-var is_generating: bool = false setget set_is_generating
+var is_generating: bool
 
 
-func _generate(level: Level) -> int:
-	return GenerationStatus.DONE
+func _on_end() -> void:
+	pass
 
 
-func _process(_delta):
-	if is_generating:
-		if _generate(level) != GenerationStatus.PROCESSING:
-			self.is_generating = false
+func _on_start() -> void:
+	pass
 
 
-func set_is_generating(value: bool) -> void:
-	if value:
-		emit_signal("generation_started")
-	else:
-		emit_signal("generation_ended")
-	is_generating = value
+func _generate() -> int:
+	return DONE_STATUS
+
+
+func stop_generation() -> void:
+	self.is_generating = false
+	_on_end()
+	emit_signal("generation_ended")
 
 
 func start_generation_for(level: Level) -> void:
-	if self.level != level:
-		self.is_generating = true
 	self.level = level
+	self.is_generating = true
+	_on_start()
+	emit_signal("generation_started")

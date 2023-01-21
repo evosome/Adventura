@@ -10,18 +10,29 @@ enum GenerationState {
 	STOPPED
 }
 
-var current_state: int = GenerationState.IDLE
+var chunks: Array
+var chunks_wavefront: Array
+var current_state: int
 var last_placed_chunk: Chunk
 var placed_chunks_count: int = 0
 var used_rect_expanded: Rect2
 
-onready var chunks: Array = []
-onready var chunks_wavefront: Array = []
-
 export (int) var max_chunks: int = 9
 
 
-func _generate(level: Level):
+func _on_end() -> void:
+	chunks.clear()
+	chunks_wavefront.clear()
+
+
+func _on_start() -> void:
+	chunks = []
+	chunks_wavefront = []
+	current_state = GenerationState.IDLE
+	placed_chunks_count = 0
+
+
+func _generate():
 
 	match current_state:
 		
@@ -32,18 +43,20 @@ func _generate(level: Level):
 			if placed_chunks_count <= max_chunks:
 				var current_chunk = select_neighbour(level, last_placed_chunk)
 				
-				if _try_place_chunk(current_chunk, last_placed_chunk):
-					if current_chunk.chunk_type != Chunk.ChunkTypes.BRIDGE:
+				if current_chunk.chunk_type != Chunk.NONE_TYPE \
+				and _try_place_chunk(current_chunk, last_placed_chunk):
+					if current_chunk.chunk_type != Chunk.BRIDGE_TYPE:
 						placed_chunks_count += 1
 					chunks.append(current_chunk)
-					chunks_wavefront.append(current_chunk)
+					if not current_chunk.is_busy:
+						chunks_wavefront.append(current_chunk)
+						
+					last_placed_chunk = select_gen_chunk(
+						last_placed_chunk, current_chunk)
+					if last_placed_chunk and last_placed_chunk.is_busy:
+						chunks_wavefront.erase(last_placed_chunk)
 				else:
 					current_chunk.free()
-
-				if last_placed_chunk and last_placed_chunk.is_busy():
-					chunks_wavefront.erase(last_placed_chunk)
-				
-				last_placed_chunk = Random.choice(chunks_wavefront)
 			else:
 				used_rect_expanded = _calculate_used_rect_expanded()
 				current_state = GenerationState.PRE_DRAWING
@@ -66,9 +79,9 @@ func _generate(level: Level):
 			current_state = GenerationState.STOPPED
 
 		GenerationState.STOPPED:
-			return GenerationStatus.DONE
+			return DONE_STATUS
 		
-	return GenerationStatus.PROCESSING
+	return PROCESSING_STATUS
 
 
 func _chunk_collides_others(chunk: Chunk) -> bool:
@@ -84,7 +97,10 @@ func _try_place_chunk(chunk: Chunk, previous_chunk: Chunk) -> bool:
 		chunk.set_position(Vector2.ZERO)
 		return true
 	
-	var direction = previous_chunk.get_random_direction()
+	var direction = select_direction(chunk, previous_chunk)
+	
+	if direction == Chunk.NONE_DIRECTION:
+		return false
 	
 	previous_chunk.place(chunk, direction)
 	if not _chunk_collides_others(chunk):
@@ -116,41 +132,20 @@ func _calculate_used_rect_expanded() -> Rect2:
 	return rect
 
 
+func select_direction(for_chunk: Chunk, previous_chunk: Chunk) -> int:
+	return Chunk.NONE_DIRECTION
+
+
 func select_painter(for_chunk: Chunk) -> ChunkPainter:
-	var painter: ChunkPainter
-	
-	match for_chunk.chunk_type:
-		Chunk.ChunkTypes.ASCEND:
-			painter = AscendPainter.new()
-		Chunk.ChunkTypes.DESCEND:
-			painter = DescendPainter.new()
-		Chunk.ChunkTypes.BRIDGE:
-			painter = TunnelPainter.new()
-		_:
-			painter = CommonPainter.new()
-	
-	return painter
+	return null
 
 
-# Select neighbour chunk for the given one
+func select_gen_chunk(current_chunk: Chunk, for_chunk: Chunk) -> Chunk:
+	return null
+
+
 func select_neighbour(level: Level, for_chunk: Chunk) -> Chunk:
-	var chunk_type: int = \
-		for_chunk.chunk_type if for_chunk else Chunk.ChunkTypes.NONE
-	var next_chunk_type: int
-
-	match chunk_type:
-		Chunk.ChunkTypes.COMMON, \
-		Chunk.ChunkTypes.ASCEND:
-			next_chunk_type = Chunk.ChunkTypes.BRIDGE
-		_:
-			if placed_chunks_count >= max_chunks:
-				next_chunk_type = Chunk.ChunkTypes.DESCEND
-			elif placed_chunks_count == 0:
-				next_chunk_type = Chunk.ChunkTypes.ASCEND
-			else:
-				next_chunk_type = Chunk.ChunkTypes.COMMON
-	
-	return Chunk.new(level, next_chunk_type)
+	return null
 
 
 func paint(level: Level, chunk: Chunk) -> void:
@@ -158,3 +153,4 @@ func paint(level: Level, chunk: Chunk) -> void:
 	if painter:
 		painter.draw(chunk)
 	level.spawn(ChunkCollider.create_for(level, chunk), chunk.get_rect_center())
+	chunk.fill_shadow(ShadowMap.DARK_SHADOW)

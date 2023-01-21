@@ -29,6 +29,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/generators/classic/ChunkPainter.gd"
 }, {
+"base": "Object",
+"class": "ChunkShadower",
+"language": "GDScript",
+"path": "res://scripts/generators/classic/ChunkShadower.gd"
+}, {
 "base": "LevelGenerator",
 "class": "ClassicGenerator",
 "language": "GDScript",
@@ -43,6 +48,16 @@ _global_script_classes=[ {
 "class": "CommonPainter",
 "language": "GDScript",
 "path": "res://scripts/generators/classic/painters/CommonPainter.gd"
+}, {
+"base": "ClassicGenerator",
+"class": "DebugGenerator",
+"language": "GDScript",
+"path": "res://scripts/generators/classic/DebugGenerator.gd"
+}, {
+"base": "Roadmap",
+"class": "DebugRoadmap",
+"language": "GDScript",
+"path": "res://scripts/roadmaps/DebugRoadmap.gd"
 }, {
 "base": "ChunkPainter",
 "class": "DescendPainter",
@@ -94,6 +109,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/Main.gd"
 }, {
+"base": "Control",
+"class": "MemoryUsage",
+"language": "GDScript",
+"path": "res://scripts/ui/MemoryUsage.gd"
+}, {
 "base": "Entity",
 "class": "Mob",
 "language": "GDScript",
@@ -105,9 +125,9 @@ _global_script_classes=[ {
 "path": "res://scripts/entities/mobs/Player.gd"
 }, {
 "base": "Object",
-"class": "PlayerInfo",
+"class": "PlayerData",
 "language": "GDScript",
-"path": "res://scripts/PlayerInfo.gd"
+"path": "res://scripts/PlayerData.gd"
 }, {
 "base": "EditorScript",
 "class": "ReferenceCollector",
@@ -134,6 +154,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/misc/SingleNodeContainer.gd"
 }, {
+"base": "Node",
+"class": "StateMachine",
+"language": "GDScript",
+"path": "res://scripts/StateMachine.gd"
+}, {
 "base": "ChunkPainter",
 "class": "TunnelPainter",
 "language": "GDScript",
@@ -144,9 +169,12 @@ _global_script_class_icons={
 "Chunk": "",
 "ChunkCollider": "",
 "ChunkPainter": "",
+"ChunkShadower": "",
 "ClassicGenerator": "",
 "Collector": "",
 "CommonPainter": "",
+"DebugGenerator": "",
+"DebugRoadmap": "",
 "DescendPainter": "",
 "Entity": "",
 "FpsMeter": "",
@@ -157,14 +185,16 @@ _global_script_class_icons={
 "LevelCamera": "",
 "LevelGenerator": "",
 "MainScene": "",
+"MemoryUsage": "",
 "Mob": "",
 "Player": "",
-"PlayerInfo": "",
+"PlayerData": "",
 "ReferenceCollector": "",
 "Roadmap": "",
 "Screen": "",
 "ShadowMap": "",
 "SingleNodeContainer": "",
+"StateMachine": "",
 "TunnelPainter": ""
 }
 
@@ -228,6 +258,11 @@ zoom_out={
 left_click={
 "deadzone": 0.5,
 "events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
+disable_shadow_map={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":16777244,"unicode":0,"echo":false,"script":null)
  ]
 }
 
