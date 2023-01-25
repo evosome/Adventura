@@ -2,12 +2,12 @@
 
 [ext_resource path="res://assets/textures/stone_tiles.png" type="Texture" id=1]
 [ext_resource path="res://assets/textures/civil_tiles.png" type="Texture" id=2]
-[ext_resource path="res://scripts/LevelCamera.gd" type="Script" id=3]
-[ext_resource path="res://scripts/Level.gd" type="Script" id=4]
+[ext_resource path="res://scripts/Camera.gd" type="Script" id=3]
+[ext_resource path="res://scripts/levels/Level.gd" type="Script" id=4]
 [ext_resource path="res://assets/textures/shadows.png" type="Texture" id=5]
 [ext_resource path="res://assets/textures/stairs.png" type="Texture" id=6]
 [ext_resource path="res://assets/textures/void.png" type="Texture" id=7]
-[ext_resource path="res://scripts/ShadowMap.gd" type="Script" id=8]
+[ext_resource path="res://scripts/levels/ShadowMap.gd" type="Script" id=8]
 
 [sub_resource type="ConvexPolygonShape2D" id=3]
 points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
@@ -163,14 +163,12 @@ script = ExtResource( 4 )
 
 [node name="Objects" type="YSort" parent="."]
 
-[node name="LevelCamera" type="Camera2D" parent="."]
-current = true
-smoothing_enabled = true
-script = ExtResource( 3 )
-max_zoom = Vector2( 1, 1 )
-
 [node name="ShadowMap" type="TileMap" parent="."]
 tile_set = SubResource( 4 )
 cell_size = Vector2( 16, 16 )
 format = 1
 script = ExtResource( 8 )
+
+[node name="CameraNode" type="Camera2D" parent="."]
+current = true
+script = ExtResource( 3 )

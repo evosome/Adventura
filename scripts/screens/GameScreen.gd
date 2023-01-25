@@ -2,7 +2,7 @@ extends Screen
 class_name GameScreen
 
 var level: Level
-var level_camera: LevelCamera
+var level_camera: CameraNode
 var current_actor: Node2D
 
 onready var viewport: Viewport = $ViewportContainer/Viewport

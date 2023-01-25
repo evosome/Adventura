@@ -13,7 +13,7 @@ var current_actor: Node2D
 
 onready var objects: YSort = $Objects
 onready var shadow_map: ShadowMap = $ShadowMap
-onready var current_camera: LevelCamera = $LevelCamera
+onready var current_camera: CameraNode = $CameraNode
 
 export (bool) var can_generate: bool = true
 export (bool) var can_spawn_current_actor: bool = true

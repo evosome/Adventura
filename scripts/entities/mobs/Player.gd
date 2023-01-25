@@ -1,4 +1,3 @@
-#TODO: assign shadow caster to entity
 extends Humanoid
 class_name Player
 

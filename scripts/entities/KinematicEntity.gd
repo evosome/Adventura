@@ -1,5 +1,5 @@
 extends KinematicBody2D
-class_name Entity
+class_name KinematicEntity
 
 signal died
 signal move_ended

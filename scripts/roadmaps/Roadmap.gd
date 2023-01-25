@@ -8,5 +8,5 @@ func get_level(depth: int) -> Level:
 	return null
 
 
-func get_generator(depth: int) -> LevelGenerator:
+func get_generator(depth: int) -> Generator:
 	return null

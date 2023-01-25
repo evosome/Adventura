@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/entities/Mob.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scripts/entities/mobs/Humanoid.gd" type="Script" id=2]
+
+[node name="Humanoid" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+
+[node name="Head" type="AnimatedSprite" parent="BodyParts" index="0"]
+
+[node name="Body" type="AnimatedSprite" parent="BodyParts" index="1"]

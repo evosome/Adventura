@@ -31,7 +31,6 @@ func select_painter(for_chunk: Chunk) -> ChunkPainter:
 	return painter
 
 
-# Select neighbour chunk for the given one
 func select_neighbour(level: Level, for_chunk: Chunk) -> Chunk:
 	var chunk: Chunk
 	var chunk_type: int = \

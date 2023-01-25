@@ -1,4 +1,4 @@
-extends LevelGenerator
+extends Generator
 class_name ClassicGenerator
 
 enum GenerationState {

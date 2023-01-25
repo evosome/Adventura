@@ -1,5 +1,5 @@
 extends Camera2D
-class_name LevelCamera
+class_name CameraNode
 
 var followed_node: Node2D
 

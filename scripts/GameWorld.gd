@@ -23,7 +23,7 @@ var is_busy: bool = false
 var current_level: Level
 var current_depth: int = -1 setget _set_current_depth
 var current_roadmap: Roadmap
-var current_generator: LevelGenerator
+var current_generator: Generator
 
 onready var levels: Dictionary = {}
 onready var current_player_data: PlayerData = PlayerData.new()
@@ -36,7 +36,7 @@ onready var _level_container: SingleNodeContainer = $Levels
 func _process(_delta):
 	if current_generator != null and current_generator.is_generating:
 		var result: int = current_generator._generate()
-		if result == LevelGenerator.DONE_STATUS:
+		if result == Generator.DONE_STATUS:
 			current_generator.stop_generation()
 
 
@@ -76,7 +76,7 @@ func _select_level(depth: int) -> Level:
 func _generate_level(
 	depth: int,
 	level: Level,
-	generator: LevelGenerator) -> void:
+	generator: Generator) -> void:
 
 	current_generator = generator
 	current_generator.start_generation_for(level)
@@ -103,7 +103,7 @@ func _despawn_player(level: Level) -> void:
 
 func _switch_level_by_depth(depth: int, mode: int) -> void:
 	var level: Level
-	var generator: LevelGenerator
+	var generator: Generator
 
 	if is_busy:
 		return

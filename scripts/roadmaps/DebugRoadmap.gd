@@ -9,7 +9,7 @@ func get_level(depth: int) -> Level:
 		return Scenes.TEST_LEVEL.instance() as Level
 
 
-func get_generator(depth: int) -> LevelGenerator:
+func get_generator(depth: int) -> Generator:
 	if depth >= 5:
-		return Scenes.DEBUG_GENERATOR.instance() as LevelGenerator
+		return Scenes.DEBUG_GENERATOR.instance() as Generator
 	return null

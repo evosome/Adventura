@@ -1,5 +1,5 @@
 extends Node
-class_name LevelGenerator
+class_name Generator
 
 enum {
 	PROCESSING_STATUS,
