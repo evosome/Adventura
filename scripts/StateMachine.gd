@@ -1,5 +1,5 @@
 # Minimalistic implementation of FSM
-extends Node
+extends Object
 class_name StateMachine
 
 signal transition_failed(from_state, to_state)
@@ -8,7 +8,11 @@ signal transition_happened(from_state, to_state)
 var finite_state: String
 var current_state: String
 
-onready var _transitions: Dictionary = {}
+var _transitions: Dictionary
+
+
+func _init():
+	_transitions = {}
 
 
 func set_begin_state(state: String) -> void:
