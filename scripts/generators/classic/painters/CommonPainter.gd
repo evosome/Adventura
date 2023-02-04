@@ -2,5 +2,5 @@ extends ChunkPainter
 class_name CommonPainter
 
 
-func draw(chunk: Chunk) -> void:
-	chunk.fill(Level.LevelTiles.STONE)
+func draw() -> void:
+	fill(Level.STONE_TILE)

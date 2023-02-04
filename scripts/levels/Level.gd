@@ -1,12 +1,12 @@
 extends TileMap
 class_name Level
 
-enum LevelTiles {
-	STONE
-	CIVIL,
-	STAIRS_UP,
-	STAIRS_DOWN,
-	BARRIER
+enum {
+	STONE_TILE
+	CIVIL_TILE,
+	STAIRS_UP_TILE,
+	STAIRS_DOWN_TILE,
+	BARRIER_TILE
 }
 
 var current_actor: Node2D
@@ -44,3 +44,11 @@ func has_actor(node: Node2D) -> bool:
 
 func update_bitmask_rect(rect: Rect2) -> void:
 	update_bitmask_region(rect.position, rect.end)
+
+
+func get_shadow_map_visibilty() -> bool:
+	return shadow_map.visible
+
+
+func set_shadow_map_visibility(value: bool) -> void:
+	shadow_map.visible = value

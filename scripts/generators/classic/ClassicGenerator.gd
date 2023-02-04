@@ -48,12 +48,12 @@ func _generate():
 					if current_chunk.chunk_type != Chunk.BRIDGE_TYPE:
 						placed_chunks_count += 1
 					chunks.append(current_chunk)
-					if not current_chunk.is_busy:
+					if not current_chunk.is_busy():
 						chunks_wavefront.append(current_chunk)
 						
 					last_placed_chunk = select_gen_chunk(
 						last_placed_chunk, current_chunk)
-					if last_placed_chunk and last_placed_chunk.is_busy:
+					if last_placed_chunk and last_placed_chunk.is_busy():
 						chunks_wavefront.erase(last_placed_chunk)
 				else:
 					current_chunk.free()
@@ -65,7 +65,7 @@ func _generate():
 			TileMapDraw.fill_rect(
 				level,
 				used_rect_expanded,
-				Level.LevelTiles.BARRIER)
+				Level.BARRIER_TILE)
 			current_state = GenerationState.DRAWING
 		
 		GenerationState.DRAWING:
@@ -75,6 +75,10 @@ func _generate():
 				current_state = GenerationState.POST_DRAWING
 
 		GenerationState.POST_DRAWING:
+			TileMapDraw.fill_rect(
+				level.shadow_map,
+				used_rect_expanded,
+				ShadowMap.DARK_SHADOW)
 			level.update_bitmask_rect(level.get_used_rect())
 			current_state = GenerationState.STOPPED
 
@@ -94,7 +98,7 @@ func _chunk_collides_others(chunk: Chunk) -> bool:
 func _try_place_chunk(chunk: Chunk, previous_chunk: Chunk) -> bool:
 
 	if previous_chunk == null:
-		chunk.set_position(Vector2.ZERO)
+		chunk.place(Vector2.ZERO, level.cell_size)
 		return true
 	
 	var direction = select_direction(chunk, previous_chunk)
@@ -102,7 +106,7 @@ func _try_place_chunk(chunk: Chunk, previous_chunk: Chunk) -> bool:
 	if direction == Chunk.NONE_DIRECTION:
 		return false
 	
-	previous_chunk.place(chunk, direction)
+	previous_chunk.place_neighbour(chunk, direction, level.cell_size)
 	if not _chunk_collides_others(chunk):
 		previous_chunk.connect_chunk(chunk, direction)
 		return true
@@ -150,7 +154,12 @@ func select_neighbour(level: Level, for_chunk: Chunk) -> Chunk:
 
 func paint(level: Level, chunk: Chunk) -> void:
 	var painter = select_painter(chunk)
+	var chunk_center = chunk.get_global_center()
+	var chunk_collider = ChunkCollider.create_for(chunk)
+	var chunk_shadower = ChunkShadower.new(chunk, level)
 	if painter:
-		painter.draw(chunk)
-	level.spawn(ChunkCollider.create_for(level, chunk), chunk.get_rect_center())
-	chunk.fill_shadow(ShadowMap.DARK_SHADOW)
+		painter.level = level
+		painter.chunk = chunk
+		painter.draw()
+	level.spawn(chunk_collider, chunk_center)
+	level.spawn(chunk_shadower, chunk_center)

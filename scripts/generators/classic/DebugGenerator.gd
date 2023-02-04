@@ -45,5 +45,4 @@ func select_neighbour(level: Level, for_chunk: Chunk) -> Chunk:
 		Chunk.COMMON_TYPE:
 			next_chunk_type = Chunk.COMMON_TYPE
 
-	return Chunk.new(
-		level, next_chunk_type, Chunk.DEFAULT_SIZE)
+	return Chunk.new(next_chunk_type)
