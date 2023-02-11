@@ -9,7 +9,7 @@ func select_gen_chunk(current_chunk: Chunk, for_chunk: Chunk) -> Chunk:
 func select_direction(for_chunk: Chunk, previous_chunk: Chunk) -> int:
 	match previous_chunk.chunk_type:
 		Chunk.ASCEND_TYPE:
-			return previous_chunk.get_random_direction()
+			return Chunk.LEFT_DIRECTION
 		Chunk.COMMON_TYPE:
 			return previous_chunk.connected_direction
 	return Chunk.NONE_DIRECTION

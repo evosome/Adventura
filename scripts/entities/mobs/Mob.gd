@@ -9,6 +9,7 @@ signal cell_position_changed(from_pos, to_pos)
 export (float) var move_speed: float = 50.0
 
 var _velocity: Vector2
+var _last_collider: Object
 var _last_collision: KinematicCollision2D
 var _previous_position: Vector2
 var _previous_cell_position: Vector2
@@ -20,9 +21,13 @@ func _physics_process(_delta):
 		_velocity = move_and_slide(_velocity)
 
 	_last_collision = get_last_slide_collision()
-	if _last_collision != null and _last_collision.collider is KinematicEntity:
-		collide(_last_collision.collider)
-		_last_collision.collider.on_collided(self)
+	if _last_collision != null:
+		var collider = _last_collision.collider
+		if collider is KinematicEntity and _last_collider != collider:
+			collide(collider)
+		_last_collider = collider
+	else:
+		_last_collider = null
 	
 	cell_position = level.world_to_map(position)
 

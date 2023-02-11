@@ -28,9 +28,8 @@ var current_generator: Generator
 onready var levels: Dictionary = {}
 onready var current_player_data: PlayerData = PlayerData.new()
 
-var _player_entity_ref: Player
-
 onready var _level_container: SingleNodeContainer = $Levels
+onready var _player_entity_ref: KinematicEntity
 
 
 func _process(_delta):

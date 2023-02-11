@@ -16,12 +16,14 @@ func _ready():
 
 
 func _input(event: InputEvent):
+
 	if level_camera:
 		if event.is_action_pressed("zoom_in"):
 			level_camera.decrease_zoom()
 		if event.is_action_pressed("zoom_out"):
 			level_camera.increase_zoom()
-	if level and event.is_action_pressed("disable_shadow_map"):
+
+	if level != null and event.is_action_pressed("disable_shadow_map"):
 		level.set_shadow_map_visibility(!level.get_shadow_map_visibilty())
 
 

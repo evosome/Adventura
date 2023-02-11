@@ -75,11 +75,12 @@ func _generate():
 				current_state = GenerationState.POST_DRAWING
 
 		GenerationState.POST_DRAWING:
+			var used_rect = level.get_used_rect()
 			TileMapDraw.fill_rect(
 				level.shadow_map,
-				used_rect_expanded,
+				used_rect,
 				ShadowMap.DARK_SHADOW)
-			level.update_bitmask_rect(level.get_used_rect())
+			level.update_bitmask_rect(used_rect)
 			current_state = GenerationState.STOPPED
 
 		GenerationState.STOPPED:

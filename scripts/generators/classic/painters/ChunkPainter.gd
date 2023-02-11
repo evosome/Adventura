@@ -9,6 +9,14 @@ func draw() -> void:
 	pass
 
 
+func spawn_cell(entity: KinematicEntity, x: int, y: int) -> void:
+	spawn_cellv(entity, Vector2(x, y))
+
+
+func spawn_cellv(entity: KinematicEntity, vec: Vector2) -> void:
+	entity.spawn_on(level, level.map_to_world(vec))
+
+
 func set_cell(x: int, y: int, tile: int) -> void:
 	set_cellv(Vector2(x, y), tile)
 
