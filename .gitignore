@@ -1,3 +1,5 @@
+.idea
+
 # Plugin Specific ignores
 default_env.tres
 override.cfg
