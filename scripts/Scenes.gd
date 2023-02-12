@@ -10,3 +10,4 @@ const CHUNK_COLLIDER = preload("res://scenes/generators/classic/ChunkCollider.ts
 const DEBUG_ROADMAP = preload("res://scenes/roadmaps/DebugRoadmap.tscn")
 const DEBUG_GENERATOR = \
 	preload("res://scenes/generators/classic/DebugGenerator.tscn")
+const GAME_SCREEN = preload("res://scenes/screens/GameScreen.tscn")

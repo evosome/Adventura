@@ -32,6 +32,10 @@ onready var _level_container: SingleNodeContainer = $Levels
 onready var _player_entity_ref: KinematicEntity
 
 
+func _input(event):
+	print(event)
+
+
 func _process(_delta):
 	if current_generator != null and current_generator.is_generating:
 		var result: int = current_generator._generate()

@@ -2,8 +2,20 @@ extends Control
 class_name Screen
 
 
-signal change_requested(to_screen_name)
+var _screen_changer: ScreenChanger
 
 
-func switch_to(screen_name: String) -> void:
-	emit_signal("change_requested", screen_name)
+func switch(to_screen: String) -> void:
+	_screen_changer.change_screen(to_screen)
+
+
+func set_screen_changer(screen_changer: ScreenChanger) -> void:
+	_screen_changer = screen_changer
+
+
+func on_exit() -> void:
+	yield()
+
+
+func on_enter() -> void:
+	yield()
