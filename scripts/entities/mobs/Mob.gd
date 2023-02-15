@@ -7,6 +7,7 @@ signal move_started
 signal cell_position_changed(from_pos, to_pos)
 
 export (float) var move_speed: float = 50.0
+export (float) var acceleration: float = 0.3
 
 var _velocity: Vector2
 var _last_collider: Object
@@ -16,7 +17,6 @@ var _previous_cell_position: Vector2
 
 
 func _physics_process(_delta):
-	
 	if _velocity != Vector2.ZERO:
 		_velocity = move_and_slide(_velocity)
 
@@ -58,4 +58,4 @@ func setup_state_machine() -> void:
 
 
 func move(direction: Vector2) -> void:
-	_velocity = direction * move_speed
+	_velocity = lerp( _velocity, direction * move_speed, acceleration)
