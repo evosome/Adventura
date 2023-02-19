@@ -10,7 +10,7 @@ func select_direction(for_chunk: Chunk, previous_chunk: Chunk) -> int:
 	match previous_chunk.chunk_type:
 		Chunk.ASCEND_TYPE:
 			return Chunk.LEFT_DIRECTION
-		Chunk.COMMON_TYPE:
+		_:
 			return previous_chunk.connected_direction
 	return Chunk.NONE_DIRECTION
 
@@ -43,6 +43,9 @@ func select_neighbour(level: Level, for_chunk: Chunk) -> Chunk:
 		Chunk.ASCEND_TYPE:
 			next_chunk_type = Chunk.COMMON_TYPE
 		Chunk.COMMON_TYPE:
-			next_chunk_type = Chunk.COMMON_TYPE
+			if placed_chunks_count < max_chunks:
+				next_chunk_type = Chunk.COMMON_TYPE
+			else:
+				next_chunk_type = Chunk.DESCEND_TYPE
 
 	return Chunk.new(next_chunk_type)

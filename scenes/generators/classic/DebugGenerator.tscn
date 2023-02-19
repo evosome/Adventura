@@ -4,4 +4,4 @@
 
 [node name="DebugGenerator" type="Node"]
 script = ExtResource( 1 )
-max_chunks = 3
+max_chunks = 4

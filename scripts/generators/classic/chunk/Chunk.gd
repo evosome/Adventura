@@ -137,6 +137,10 @@ func get_center() -> Vector2:
 	return bounds.get_center()
 
 
+func get_rounded_center() -> Vector2:
+	return get_center().floor()
+
+
 # Get radius floored (rounded down toward negative infinity) radius
 func get_rounded_radius() -> Vector2:
 	return get_radius().floor()

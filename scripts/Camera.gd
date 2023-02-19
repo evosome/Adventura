@@ -8,8 +8,19 @@ export (Vector2) var max_zoom: Vector2 = Vector2(1.0, 1.0)
 export (Vector2) var zoom_step: Vector2 = Vector2(0.1, 0.1)
 
 
+func _input(event: InputEvent):
+	if event.is_action_pressed("zoom_in"):
+		decrease_zoom()
+	if event.is_action_pressed("zoom_out"):
+		increase_zoom()
+
+
 func follow(node: Node2D) -> void:
 	followed_node = node
+
+
+func unfollow_current() -> void:
+	followed_node = null
 
 
 func increase_zoom() -> void:
