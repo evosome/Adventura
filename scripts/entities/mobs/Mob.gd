@@ -39,10 +39,12 @@ func _physics_process(_delta):
 
 	if position != _previous_position and state_machine.current_state == "Idle":
 		state_machine.transition_to("Moving")
+		play_animation("Moving")
 		emit_signal("move_started")
 
 	if position == _previous_position and state_machine.current_state == "Moving":
 		state_machine.transition_to("Idle")
+		play_animation("Idle")
 		emit_signal("move_ended")
 
 	_previous_cell_position = cell_position

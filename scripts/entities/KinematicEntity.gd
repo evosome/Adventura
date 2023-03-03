@@ -4,6 +4,7 @@ class_name KinematicEntity
 var level: Level
 var cell_position: Vector2
 
+onready var base_sprite: AnimatedSprite = $BaseSprite
 onready var state_machine: StateMachine = StateMachine.new()
 onready var mouse_detection_area: Area2D = $MouseDetectionArea
 
@@ -22,6 +23,12 @@ func __on_mouse_exited() -> void:
 func __on_mouse_entered() -> void:
 	if not level.is_actor_selected(self):
 		level.select(self)
+
+
+func play_animation(animation_name: String) -> void:
+	if base_sprite.frames != null \
+	and base_sprite.frames.has_animation(animation_name):
+		base_sprite.play(animation_name)
 
 
 func spawn_on(level: Level, at_pos: Vector2) -> void:

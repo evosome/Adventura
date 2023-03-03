@@ -5,7 +5,3 @@
 
 [node name="Humanoid" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
-
-[node name="Head" type="AnimatedSprite" parent="BodyParts" index="0"]
-
-[node name="Body" type="AnimatedSprite" parent="BodyParts" index="1"]

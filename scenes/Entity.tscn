@@ -9,3 +9,5 @@ script = ExtResource( 1 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 
 [node name="MouseDetectionArea" type="Area2D" parent="."]
+
+[node name="BaseSprite" type="AnimatedSprite" parent="."]
