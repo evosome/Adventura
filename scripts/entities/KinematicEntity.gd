@@ -4,13 +4,17 @@ class_name KinematicEntity
 var level: Level
 var cell_position: Vector2
 
-onready var base_sprite: AnimatedSprite = $BaseSprite
+onready var base_sprite: EntitySprite = $BaseSprite
 onready var state_machine: StateMachine = StateMachine.new()
 onready var mouse_detection_area: Area2D = $MouseDetectionArea
+
+export (Color) var outline: Color
+export (Color) var hover_outline: Color
 
 
 func _ready():
 	setup_state_machine()
+	set_default_outline()
 	mouse_detection_area.connect("mouse_exited", self, "__on_mouse_exited")
 	mouse_detection_area.connect("mouse_entered", self, "__on_mouse_entered")
 
@@ -18,17 +22,31 @@ func _ready():
 func __on_mouse_exited() -> void:
 	if level.is_actor_selected(self):
 		level.unselect()
+	on_unselected(level.current_selected_actor)
+	set_default_outline()
 
 
 func __on_mouse_entered() -> void:
 	if not level.is_actor_selected(self):
 		level.select(self)
+	on_selected(level.current_selected_actor)
+	set_hover_outline()
+
+
+func set_outline_color(color: Color) -> void:
+	base_sprite.set_outline_color(color)
+
+
+func set_hover_outline() -> void:
+	set_outline_color(hover_outline)
+
+
+func set_default_outline() -> void:
+	set_outline_color(outline)
 
 
 func play_animation(animation_name: String) -> void:
-	if base_sprite.frames != null \
-	and base_sprite.frames.has_animation(animation_name):
-		base_sprite.play(animation_name)
+	base_sprite.play_animation(animation_name)
 
 
 func spawn_on(level: Level, at_pos: Vector2) -> void:
@@ -58,6 +76,14 @@ func collide(with_entity: KinematicEntity) -> void:
 
 func interact(with_entity: KinematicEntity) -> void:
 	with_entity.on_interacted(self)
+
+
+func on_selected(by_actor: Node2D) -> void:
+	pass
+
+
+func on_unselected(by_actor: Node2D) -> void:
+	pass
 
 
 func on_collided(by_actor: Node2D) -> void:

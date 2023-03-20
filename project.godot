@@ -84,6 +84,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/entities/mobs/Dummy.gd"
 }, {
+"base": "ShaderedSprite",
+"class": "EntitySprite",
+"language": "GDScript",
+"path": "res://scripts/sprites/EntitySprite.gd"
+}, {
 "base": "Control",
 "class": "FpsMeter",
 "language": "GDScript",
@@ -169,6 +174,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/screens/ScreenChanger.gd"
 }, {
+"base": "AnimatedSprite",
+"class": "ShaderedSprite",
+"language": "GDScript",
+"path": "res://scripts/sprites/ShaderedSprite.gd"
+}, {
 "base": "TileMap",
 "class": "ShadowMap",
 "language": "GDScript",
@@ -220,6 +230,7 @@ _global_script_class_icons={
 "DebugRoadmap": "",
 "DescendPainter": "",
 "Dummy": "",
+"EntitySprite": "",
 "FpsMeter": "",
 "GameScreen": "",
 "GameWorld": "",
@@ -237,6 +248,7 @@ _global_script_class_icons={
 "Roadmap": "",
 "Screen": "",
 "ScreenChanger": "",
+"ShaderedSprite": "",
 "ShadowMap": "",
 "SingleNodeContainer": "",
 "SinglePlayerWorld": "",
