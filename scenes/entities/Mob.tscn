@@ -9,6 +9,9 @@
 script = ExtResource( 2 )
 move_speed = 50.0
 acceleration = 0.3
+cell_interaction_range = 3.0
 
-[node name="BaseSprite" parent="." index="2"]
+[node name="BaseSprite" parent="." index="1"]
 material = SubResource( 1 )
+
+[node name="AttackArea" type="Area2D" parent="." index="2"]

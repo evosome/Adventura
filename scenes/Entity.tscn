@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://scripts/entities/KinematicEntity.gd" type="Script" id=1]
+[ext_resource path="res://scripts/entities/Entity.gd" type="Script" id=1]
 [ext_resource path="res://scripts/sprites/EntitySprite.gd" type="Script" id=2]
 
 [sub_resource type="ShaderMaterial" id=1]
@@ -8,12 +8,9 @@
 [node name="Entity" type="KinematicBody2D"]
 input_pickable = true
 script = ExtResource( 1 )
-outline = Color( 0, 0, 0, 0.784314 )
-hover_outline = Color( 1, 1, 1, 0.784314 )
+_hover_outline = Color( 1, 1, 1, 0.784314 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-
-[node name="MouseDetectionArea" type="Area2D" parent="."]
 
 [node name="BaseSprite" type="AnimatedSprite" parent="."]
 material = SubResource( 1 )

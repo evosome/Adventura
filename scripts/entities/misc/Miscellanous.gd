@@ -1,2 +1,2 @@
-extends KinematicEntity
+extends Entity
 class_name Miscellanous

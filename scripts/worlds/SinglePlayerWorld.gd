@@ -6,11 +6,13 @@ var current_roadmap: Roadmap
 var current_generator: Generator
 
 onready var levels: Dictionary = {}
+onready var world2d: World2D = get_world_2d()
+onready var physics_state: Physics2DDirectSpaceState = world2d.direct_space_state
 onready var current_player_data: PlayerData = PlayerData.new()
 
 onready var _world_camera: CameraNode = $CameraNode
 onready var _level_container: SingleNodeContainer = $Levels
-onready var _player_entity_ref: KinematicEntity
+onready var _player_entity_ref: Entity
 
 
 func _process(_delta):
@@ -18,6 +20,17 @@ func _process(_delta):
 		var result: int = current_generator._generate()
 		if result == Generator.DONE_STATUS:
 			current_generator.stop_generation()
+
+
+func _physics_process(_delta):
+	if not current_level:
+		return
+
+	var actor: Actor = current_level.get_actor_at(get_global_mouse_position())
+	if actor:
+		current_level.select(actor)
+	else:
+		current_level.unselect()
 
 
 func _set_level(level: Level) -> void:
@@ -69,7 +82,8 @@ func _spawn_player(level: Level, level_switch_mode: int) -> void:
 			spawn_point = level.descend_point
 		DESCEND_MODE:
 			spawn_point = level.ascend_point
-	_player_entity_ref.spawn_on(level, spawn_point)
+	_player_entity_ref.current = true
+	_player_entity_ref.spawn(level, spawn_point)
 	_world_camera.follow(_player_entity_ref)
 
 

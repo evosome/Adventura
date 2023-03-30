@@ -2,6 +2,6 @@ extends Miscellanous
 class_name StairsUp
 
 
-func on_interacted(by_actor: Node2D) -> void:
-	if by_actor is Player:
+func on_interacted(by: Actor) -> void:
+	if by is Player:
 		level.ascend()

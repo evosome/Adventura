@@ -5,9 +5,6 @@
 [ext_resource path="res://assets/textures/player.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=10]
-extents = Vector2( 4, 4 )
-
-[sub_resource type="RectangleShape2D" id=11]
 extents = Vector2( 6, 8 )
 
 [sub_resource type="ShaderMaterial" id=25]
@@ -65,19 +62,22 @@ animations = [ {
 "speed": 10.0
 } ]
 
+[sub_resource type="RectangleShape2D" id=26]
+extents = Vector2( 12, 8 )
+
 [node name="Player" instance=ExtResource( 2 )]
 script = ExtResource( 1 )
-outline = Color( 0, 0, 0, 0.784314 )
-hover_outline = Color( 1, 1, 1, 0.784314 )
 
 [node name="CollisionShape2D" parent="." index="0"]
-position = Vector2( 0, 4 )
+position = Vector2( 0, -1 )
 shape = SubResource( 10 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="MouseDetectionArea" index="0"]
-shape = SubResource( 11 )
-
-[node name="BaseSprite" parent="." index="2"]
+[node name="BaseSprite" parent="." index="1"]
 material = SubResource( 25 )
+position = Vector2( 0, -3 )
 frames = SubResource( 24 )
 animation = "Idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea" index="0"]
+position = Vector2( 12, -1 )
+shape = SubResource( 26 )

@@ -8,5 +8,5 @@
 [node name="Humanoid" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 
-[node name="BaseSprite" parent="." index="2"]
+[node name="BaseSprite" parent="." index="1"]
 material = SubResource( 1 )
