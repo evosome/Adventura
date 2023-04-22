@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/generating_icon0.png-76f876c42e86fdc707fd631abc41aaee.stex"
+path="res://.import/test_tiles.png-f7ebaff273f408761175180a27e948fd.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/generating_icon0.png"
-dest_files=[ "res://.import/generating_icon0.png-76f876c42e86fdc707fd631abc41aaee.stex" ]
+source_file="res://assets/textures/test_tiles.png"
+dest_files=[ "res://.import/test_tiles.png-f7ebaff273f408761175180a27e948fd.stex" ]
 
 [params]
 
@@ -21,7 +21,7 @@ compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
 flags/filter=false
-flags/mipmaps=true
+flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
 process/fix_alpha_border=true

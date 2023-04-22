@@ -8,6 +8,7 @@
 [node name="Entity" type="KinematicBody2D"]
 input_pickable = true
 script = ExtResource( 1 )
+_outline = Color( 1, 1, 1, 0 )
 _hover_outline = Color( 1, 1, 1, 0.784314 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

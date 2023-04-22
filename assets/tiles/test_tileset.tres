@@ -1,12 +1,13 @@
-[gd_scene load_steps=5 format=2]
+[gd_resource type="TileSet" load_steps=3 format=2]
 
-[ext_resource path="res://scripts/levels/Level.gd" type="Script" id=4]
-[ext_resource path="res://assets/textures/shadows.png" type="Texture" id=5]
-[ext_resource path="res://scripts/levels/ShadowMap.gd" type="Script" id=8]
+[ext_resource path="res://assets/textures/test_tiles.png" type="Texture" id=2]
 
-[sub_resource type="TileSet" id=4]
-0/name = "BRIGHT"
-0/texture = ExtResource( 5 )
+[sub_resource type="ConvexPolygonShape2D" id=1]
+points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
+
+[resource]
+0/name = "test_tiles.png 0"
+0/texture = ExtResource( 2 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
 0/region = Rect2( 0, 0, 16, 16 )
@@ -19,8 +20,8 @@
 0/shape_one_way_margin = 0.0
 0/shapes = [  ]
 0/z_index = 0
-1/name = "HALF_BRIGHT"
-1/texture = ExtResource( 5 )
+1/name = "test_tiles.png 1"
+1/texture = ExtResource( 2 )
 1/tex_offset = Vector2( 0, 0 )
 1/modulate = Color( 1, 1, 1, 1 )
 1/region = Rect2( 16, 0, 16, 16 )
@@ -33,8 +34,8 @@
 1/shape_one_way_margin = 0.0
 1/shapes = [  ]
 1/z_index = 0
-2/name = "DARK"
-2/texture = ExtResource( 5 )
+2/name = "test_tiles.png 2"
+2/texture = ExtResource( 2 )
 2/tex_offset = Vector2( 0, 0 )
 2/modulate = Color( 1, 1, 1, 1 )
 2/region = Rect2( 32, 0, 16, 16 )
@@ -43,21 +44,14 @@
 2/navigation_offset = Vector2( 0, 0 )
 2/shape_offset = Vector2( 0, 0 )
 2/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+2/shape = SubResource( 1 )
 2/shape_one_way = false
-2/shape_one_way_margin = 0.0
-2/shapes = [  ]
+2/shape_one_way_margin = 1.0
+2/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 1 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
 2/z_index = 0
-
-[node name="Level" type="TileMap"]
-cell_size = Vector2( 16, 16 )
-cell_custom_transform = Transform2D( 16, 0, 0, 16, 0, 0 )
-format = 1
-script = ExtResource( 4 )
-
-[node name="Objects" type="YSort" parent="."]
-
-[node name="ShadowMap" type="TileMap" parent="."]
-tile_set = SubResource( 4 )
-cell_size = Vector2( 16, 16 )
-format = 1
-script = ExtResource( 8 )
